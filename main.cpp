@@ -24,23 +24,23 @@ int main() {
         ballX += ballSpeedX;
         ballY += ballSpeedY;
  
-        if (ballX + 15 > 800) {
+        if (ballX + 5 > 800) {
             ballSpeedX *= -1;
         }
-        if (ballX - 15 < 0) {
+        if (ballX - 5 < 0) {
             ballSpeedX *= -1;
         }
-        if (ballY + 15 > 600) {
+        if (ballY + 5 > 600) {
             ballSpeedY *= -1;
         }
-        if (ballY - 15 < 0) {
+        if (ballY - 5 < 0) {
             ballSpeedY *= -1;
         }
 
-        if ((ballX + 15 >= padX) && (ballX - 15 <= padX + 10) && (ballY + 15 >= padY) && (ballY - 15 <= padY + 10)) {
+        if ((ballX + 5 >= padX) && (ballX - 5 <= padX + 10) && (ballY + 5 >= padY) && (ballY - 5 <= padY + 10)) {
             ballSpeedX = -ballSpeedX;
         }
-        if ((ballX + 15 >= aiPadX) && (ballX - 15 <= aiPadX + 10) && (ballY + 15 >= aiPadY) && (ballY - 15 <= aiPadY + 10)) {
+        if ((ballX + 5 >= aiPadX) && (ballX - 5 <= aiPadX + 10) && (ballY + 5 >= aiPadY) && (ballY - 5 <= aiPadY + 10)) {
             ballSpeedX = -ballSpeedX;
         }
 
@@ -61,14 +61,14 @@ int main() {
         BeginDrawing();
         ClearBackground(BLACK);
 
-        DrawTextEx(ft, TextFormat("0"), Vector2{ 400, 50 }, 50, 2, WHITE);
-        DrawTextEx(ft, TextFormat("0"), Vector2{ 400, 50 }, 50, 2, WHITE);
+        DrawTextEx(ft, TextFormat("0"), Vector2{ 315, 50 }, 50, 2, WHITE);
+        DrawTextEx(ft, TextFormat("0"), Vector2{ 450, 50 }, 50, 2, WHITE);
 
         for (float i = 0; i < 600; i += 100) {
             DrawLineEx(Vector2{ 400, i }, Vector2{ 400, i + 50 }, 5, WHITE);
         }
 
-        DrawCircle(ballX, ballY, 15, RED);
+        DrawCircle(ballX, ballY, 10, RED);
 
         DrawRectangle(100, padY, 30, 150, WHITE);
         DrawRectangle(1700, aiPadY, 30, 150, WHITE);
