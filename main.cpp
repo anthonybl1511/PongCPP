@@ -1,4 +1,6 @@
 #include "raylib.h"
+#include "Button.h"
+#include "SceneManager.h"
 #include <iostream>
 #include "string"
 using namespace std;
@@ -10,9 +12,9 @@ int main() {
     int ballSpeedY = 2;
 
     int padX = 10;
-    int padY = 0; 
+    int padY = 300; 
     int aiPadX = 770;
-    int aiPadY = 0;
+    int aiPadY = 300;
     int padSpeed = 10;
     int aiPadSpeed = 5;
 
@@ -20,11 +22,6 @@ int main() {
     int aiScore = 0;
     string winner;
 
-    enum Scene {
-        menu,
-        game,
-        score
-    };
     Scene activeScene = Scene::menu;
 
     bool soloMode = true;
@@ -38,20 +35,31 @@ int main() {
     Sound pointSFX = LoadSound("resources/sounds/point.wav");
     Font ft = LoadFont("resources/pixantiqua.ttf");
 
+    Button onePlayerButton({ 150, 300 }, { 200, 50 }, "1 Player", Scene::game);
+    Button twoPlayersButton({ 450, 300 }, { 200, 50 }, "2 Players", Scene::game);
+    Button backToMenuButton({ 100, 200 }, { 200, 50 }, "Return to menu", Scene::menu);
+
     PlayMusicStream(music);
     while (!WindowShouldClose()) {
         BeginDrawing();
         ClearBackground(WHITE);
-;
+
         switch (activeScene)
         {
         case Scene::menu: 
         {
-            DrawTextEx(ft, "PONG", Vector2{320, 50}, 60, 2, BLACK);
-            DrawTextEx(ft, "Press any key to start.", Vector2{270, 300}, 20, 2, BLACK);
+            DrawTextEx(ft, "PONG", Vector2{300, 50}, 80, 2, BLACK);
 
-            if (IsKeyDown(KEY_SPACE)) {
+            onePlayerButton.Draw(ft);
+            twoPlayersButton.Draw(ft);
+
+            if (onePlayerButton.IsPressed()) {
                 activeScene = Scene::game;
+                soloMode = true;
+            }
+            if (twoPlayersButton.IsPressed()) {
+                activeScene = Scene::game;
+                soloMode = false;
             }
         }
             break;
@@ -161,18 +169,16 @@ int main() {
             break;
         case Scene::score:
         {
+            backToMenuButton.Draw(ft);
+
             playerScore = 0;
             aiScore = 0;
 
             DrawTextEx(ft, "GAME OVER", Vector2{ 320, 50 }, 60, 2, BLACK);
             DrawTextEx(ft, (winner + " wins!").c_str(), Vector2{ 370, 200 }, 40, 2, BLACK);
-            DrawTextEx(ft, "Press M to return to menu or SPACE to restart.", Vector2{ 100, 300 }, 20, 2, BLACK);
 
-            if (IsKeyDown(KEY_M)) {
+            if (backToMenuButton.IsPressed()) {
                 activeScene = Scene::menu;
-            }
-            if (IsKeyDown(KEY_SPACE)) {
-                activeScene = Scene::game;
             }
         }
             break;
