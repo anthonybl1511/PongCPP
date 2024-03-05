@@ -16,7 +16,7 @@ int main() {
     int aiPadX = 770;
     int aiPadY = 300;
     int padSpeed = 10;
-    int aiPadSpeed = 5;
+    int aiPadSpeed = 3;
 
     int playerScore = 0;
     int aiScore = 0;
@@ -115,13 +115,13 @@ int main() {
                 PlaySound(touchSFX);
 
                 ballSpeedX *= -1.3f;
-                ballSpeedY *= 1.4f;
+                ballSpeedY *= 1.5f;
             }
             if (ballX + 5 >= aiPadX && ballY > aiPadY && ballY < aiPadY + 120) {
                 PlaySound(touchSFX);
 
                 ballSpeedX *= -1.3f;
-                ballSpeedY *= 1.4f;
+                ballSpeedY *= 1.5f;
             }
 
             if (IsKeyDown(KEY_W) && padY > 0) {
@@ -174,7 +174,7 @@ int main() {
             playerScore = 0;
             aiScore = 0;
 
-            DrawTextEx(ft, "GAME OVER", Vector2{ 320, 50 }, 60, 2, BLACK);
+            DrawTextEx(ft, "GAME OVER", Vector2{ 300, 50 }, 60, 2, BLACK);
             DrawTextEx(ft, (winner + " wins!").c_str(), Vector2{ 370, 200 }, 40, 2, BLACK);
 
             if (backToMenuButton.IsPressed()) {
